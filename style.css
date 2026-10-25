@@ -1,0 +1,338 @@
+@font-face {
+  font-family: "Oracle Black";
+  src: url("fonts/archivo-black.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Oracle Sans";
+  src: url("fonts/dm-sans-variable.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+}
+:root {
+  font-family: "Oracle Sans", sans-serif;
+  color: #151515;
+  background: #e6ebdf;
+  font-synthesis: none;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-height: 100svh;
+  overflow: hidden;
+}
+header {
+  position: absolute;
+  top: 26px;
+  left: 12px;
+  right: 12px;
+  text-align: center;
+  z-index: 3;
+  pointer-events: none;
+}
+h1 {
+  font-family: "Oracle Black", sans-serif;
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1;
+  margin: 0 0 14px;
+  text-transform: uppercase;
+}
+header p {
+  margin: 0;
+  color: #4f5848;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+button {
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+button:focus-visible {
+  outline: 2px solid #151515;
+  outline-offset: 6px;
+}
+main:focus {
+  outline: none;
+}
+main {
+  position: absolute;
+  inset: 110px 0 54px;
+  touch-action: none;
+  user-select: none;
+  overflow: hidden;
+}
+.world {
+  position: absolute;
+  width: 420px;
+  height: 640px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(var(--scale, 1));
+  transform-origin: center;
+}
+.dispenser {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 130px;
+  width: 160px;
+  height: 265px;
+  border: 0;
+  background: none;
+  padding: 0;
+  z-index: 4;
+  touch-action: none;
+}
+.dispenser svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.press-plate {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  transition: transform 100ms ease;
+}
+.dispenser:hover .press-plate {
+  transform: translateY(-2px);
+}
+.pouring .press-plate {
+  transform: translateY(-5px) scaleY(0.93);
+}
+#soapLevel {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  transform: scaleY(var(--level, 1));
+}
+.stream {
+  position: absolute;
+  left: 205px;
+  top: 250px;
+  width: 5px;
+  height: 222px;
+  background: #fffef7;
+  border-left: 1px solid #151515;
+  border-right: 1px solid #151515;
+  border-radius: 3px;
+  opacity: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.pouring .stream {
+  opacity: 1;
+}
+.hand {
+  position: absolute;
+  left: 60px;
+  top: 245px;
+  width: 300px;
+  height: 379px;
+  transform: translate(var(--hx, 0px), var(--hy, 0px)) rotate(-16deg);
+  transform-origin: 50% 60%;
+  pointer-events: none;
+  z-index: 2;
+}
+.hand svg,
+.hand canvas {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+}
+.dictionary {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: -0.15px;
+  color: #151515;
+  border: 0;
+  border-bottom: 1.5px solid #151515;
+  background: none;
+  padding: 3px 0;
+  z-index: 5;
+}
+.dictionary:hover {
+  opacity: 0.6;
+}
+dialog {
+  width: 490px;
+  max-width: calc(100vw - 30px);
+  max-height: 90svh;
+  margin: auto;
+  padding: 35px 27px 25px;
+  background: #e6ebdf;
+  border: 2px solid #151515;
+  color: #151515;
+  border-radius: 0;
+  scrollbar-width: thin;
+}
+dialog::backdrop {
+  background: #e6ebdfc9;
+}
+h2 {
+  font-family: "Oracle Black", sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  text-align: center;
+  margin: 0 0 23px;
+  letter-spacing: -1px;
+}
+.close {
+  position: absolute;
+  right: 12px;
+  top: 7px;
+  font-size: 27px;
+  font-weight: 700;
+  background: none;
+  border: 0;
+  color: #151515;
+  padding: 0 4px;
+}
+.shape-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.shape-card {
+  text-align: center;
+  min-height: 112px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1.5px solid transparent;
+}
+.shape-card.matched {
+  border-color: #151515;
+}
+.shape-card canvas {
+  width: 112px;
+  height: 74px;
+  max-width: 100%;
+}
+.shape-card span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: -0.1px;
+}
+.result-dialog {
+  width: 360px;
+  padding: 30px 25px 34px;
+  text-align: center;
+  background: #e6ebdf;
+}
+.result-dialog canvas {
+  display: block;
+  width: 250px;
+  max-width: 100%;
+  height: auto;
+  margin: 5px auto 17px;
+}
+#fortune {
+  display: block;
+  font-family: "Oracle Black", sans-serif;
+  font-size: 33px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+@media (max-height: 650px) {
+  header {
+    top: 18px;
+  }
+  h1 {
+    font-size: 33px;
+    margin-bottom: 10px;
+  }
+  main {
+    top: 91px;
+    bottom: 42px;
+  }
+  .dictionary {
+    bottom: 14px;
+  }
+}
+@media (max-width: 420px) {
+  h1 {
+    font-size: 36px;
+  }
+  header p {
+    font-size: 9px;
+  }
+  dialog {
+    padding: 34px 13px 23px;
+  }
+  .shape-card {
+    min-height: 96px;
+  }
+  .shape-card canvas {
+    width: 93px;
+    height: 64px;
+  }
+  .shape-card span {
+    font-size: 9px;
+  }
+  .result-dialog {
+    width: 310px;
+  }
+  .result-dialog canvas {
+    width: 220px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .press-plate {
+    transition: none;
+  }
+}
+
+/* Keep the close control clear of the result frame and artwork. */
+.result-dialog {
+  padding: 62px 25px 34px;
+}
+.result-dialog .close {
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  line-height: 1;
+  border: 0;
+  outline-offset: 3px;
+}
+.result-dialog .close:focus-visible {
+  outline: 2px solid #151515;
+}
+@media (max-width: 420px) {
+  .result-dialog {
+    padding: 62px 19px 29px;
+  }
+}
+
+/* The artwork occupies the viewport, with room for the dictionary link. */
+main {
+  inset: 0 0 48px;
+}
+@media (max-height: 650px) {
+  main {
+    top: 0;
+    bottom: 40px;
+  }
+}
